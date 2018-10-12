@@ -3,7 +3,7 @@
 {-# LANGUAGE InstanceSigs #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 
-module ThreePeat (ThreePeat, createThreePeat, toList, intercalateShow) where
+module ThreePeat (ThreePeat, createThreePeat, intercalateShow) where
 
 import ClassyPrelude hiding (toList)
 
