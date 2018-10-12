@@ -1,3 +1,4 @@
+{-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 
 module TicTacToe where
@@ -12,12 +13,12 @@ data Board = Board { firstRow :: Row, secondRow :: Row, thirdRow :: Row }
 data Game = Game { board :: Board }
 
 printGame :: Game -> IO ()
-printGame (Game board) = putStr $ pack (showBoard board)
+printGame (Game board) = putStr $ showBoard board
 
-showBoard :: Board -> String
+showBoard :: Board -> Text
 showBoard (Board fRow sRow tRow) = intercalate "\n" [showRow fRow, showRow sRow, showRow tRow]
 
-showRow :: Row -> String
+showRow :: Row -> Text
 showRow (Row fSquare sSquare tSquare) = intercalate "|" [showSquare fSquare, showSquare sSquare, showSquare tSquare]
 
 test :: IO ()
