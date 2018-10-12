@@ -3,10 +3,7 @@
 module TicTacToe where
 
 import ClassyPrelude
-
-data Piece = X | O
-
-data Square = Empty | NonEmpty Piece
+import Square
 
 data Row = Row { firstSquare :: Square, secondSquare :: Square, thirdSquare :: Square }
 
