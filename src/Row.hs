@@ -3,13 +3,14 @@
 
 module Row (Row, showRow, newRow) where
 
-import ClassyPrelude
+import ClassyPrelude hiding (toList)
 import Square
+import ThreePeat
 
-data Row = Row { firstSquare :: Square, secondSquare :: Square, thirdSquare :: Square }
+newtype Row = Row { unRow :: ThreePeat Square }
 
 showRow :: Row -> Text
-showRow (Row fSquare sSquare tSquare) = intercalate "|" [showSquare fSquare, showSquare sSquare, showSquare tSquare]
+showRow row = intercalateShow "|" showSquare (unRow row)
 
 newRow :: Row
-newRow = Row newSquare newSquare newSquare
+newRow = Row $ createThreePeat newSquare newSquare newSquare

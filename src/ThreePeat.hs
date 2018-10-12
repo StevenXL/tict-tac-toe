@@ -3,7 +3,7 @@
 {-# LANGUAGE InstanceSigs #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 
-module ThreePeat (ThreePeat, createThreePeat, toList) where
+module ThreePeat (ThreePeat, createThreePeat, toList, intercalateShow) where
 
 import ClassyPrelude hiding (toList)
 
@@ -16,3 +16,6 @@ createThreePeat f s t = ThreePeat f s t
 
 toList :: ThreePeat a -> [a]
 toList ThreePeat{..} = [tpFirst, tpSecond, tpThird]
+
+intercalateShow :: Text -> (a -> Text) -> ThreePeat a -> Text
+intercalateShow b f = intercalate b . fmap f . toList

@@ -3,13 +3,14 @@
 
 module Board (Board, showBoard, newBoard) where
 
-import ClassyPrelude
+import ClassyPrelude hiding (toList)
 import Row
+import ThreePeat
 
-data Board = Board { firstRow :: Row, secondRow :: Row, thirdRow :: Row }
+newtype Board = Board { unBoard :: ThreePeat Row }
 
 showBoard :: Board -> Text
-showBoard (Board fRow sRow tRow) = intercalate "\n" [showRow fRow, showRow sRow, showRow tRow]
+showBoard board = intercalateShow "\n" showRow (unBoard board)
 
 newBoard :: Board
-newBoard = Board newRow newRow newRow
+newBoard = Board $ createThreePeat newRow newRow newRow
