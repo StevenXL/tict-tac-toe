@@ -2,4 +2,6 @@
 
 module Piece where
 
-data Piece = X | O
+import ClassyPrelude
+
+data Piece = X | O deriving Show
