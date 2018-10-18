@@ -1,7 +1,8 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE InstanceSigs #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 
-module Game (printGame, newGame, playGame) where
+module Game (newGame, playGame) where
 
 import ClassyPrelude
 import Board
@@ -9,8 +10,9 @@ import Position
 
 data Game = Game { gameBoard :: Board }
 
-printGame :: Game -> IO ()
-printGame game = putStrLn $ showBoard (gameBoard game)
+instance Show Game where
+  show :: Game -> String
+  show = show . gameBoard
 
 newGame :: Game
 newGame = Game newBoard

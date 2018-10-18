@@ -1,7 +1,8 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE InstanceSigs #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 
-module Board (Board, showBoard, newBoard, getCurrentPlayer, playBoard) where
+module Board (Board, newBoard, getCurrentPlayer, playBoard) where
 
 import ClassyPrelude hiding (empty, all, sum)
 import Row hiding (empty, count)
@@ -11,6 +12,10 @@ import Piece
 import Position
 
 newtype Board = Board { unBoard :: ThreePeat Row }
+
+instance Show Board where
+  show :: Board -> String
+  show = unpack . intercalateShow "\n" showRow . unBoard
 
 showBoard :: Board -> Text
 showBoard board = intercalateShow "\n" showRow (unBoard board)

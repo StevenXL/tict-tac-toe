@@ -4,7 +4,7 @@
 module TicTacToe where
 
 import ClassyPrelude
-import Game (newGame, printGame)
+import Game (newGame)
 
 test :: IO ()
-test = printGame newGame
+test = print newGame
