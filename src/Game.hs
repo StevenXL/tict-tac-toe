@@ -1,20 +1,20 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 
-module Game (printGame, newGame) where
+module Game (printGame, newGame, playGame) where
 
 import ClassyPrelude
 import Board
 import Position
 
-data Game = Game { board :: Board }
+data Game = Game { gameBoard :: Board }
 
 printGame :: Game -> IO ()
-printGame game = putStrLn $ showBoard (board game)
+printGame game = putStrLn $ showBoard (gameBoard game)
 
 newGame :: Game
 newGame = Game newBoard
 
-play :: Position -> Game -> Game
-play position game = let piece = getCurrentPlayer (board game)
-                     in error "not implemented"
+playGame :: Position -> Game -> Game
+playGame position game = game { gameBoard = playedBoard }
+  where playedBoard = playBoard position (gameBoard game)

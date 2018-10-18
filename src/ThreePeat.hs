@@ -3,10 +3,11 @@
 {-# LANGUAGE InstanceSigs #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 
-module ThreePeat (ThreePeat, createThreePeat, intercalateShow, all, countIf, sum) where
+module ThreePeat (ThreePeat, createThreePeat, intercalateShow, all, countIf, sum, get, insert) where
 
-import ClassyPrelude hiding (toList, all, map, sum)
+import ClassyPrelude hiding (toList, all, map, sum, Index)
 import qualified ClassyPrelude as CP
+import Index
 
 data ThreePeat a = ThreePeat { tpFirst :: a, tpSecond :: a, tpThird :: a } deriving Eq
 
@@ -33,3 +34,13 @@ countIf a = length . filter (== a) . toList
 
 sum :: Num a => ThreePeat a -> a
 sum = CP.sum . toList
+
+get :: Index -> ThreePeat a -> a
+get Zero threePeat = tpFirst threePeat
+get One threePeat  = tpSecond threePeat
+get Two threePeat  = tpThird threePeat
+
+insert :: Index -> ThreePeat a -> a -> ThreePeat a
+insert Zero threePeat a = threePeat { tpFirst = a }
+insert One threePeat  a = threePeat { tpSecond = a }
+insert Two threePeat  a = threePeat { tpThird = a }

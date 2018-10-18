@@ -1,13 +1,14 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 
-module Board (Board, showBoard, newBoard, getCurrentPlayer) where
+module Board (Board, showBoard, newBoard, getCurrentPlayer, playBoard) where
 
 import ClassyPrelude hiding (empty, all, sum)
 import Row hiding (empty, count)
 import qualified Row as R
 import ThreePeat
 import Piece
+import Position
 
 newtype Board = Board { unBoard :: ThreePeat Row }
 
@@ -29,3 +30,10 @@ getCurrentPlayer board
   | otherwise = O
   where xCount = count X board
         oCount = count O board
+
+playBoard :: Position -> Board -> Board
+playBoard position board = board { unBoard = playedBoard }
+  where playedBoard = insert (positionRow position) (unBoard board) playedRow
+        playedRow   = playRow (positionCol position) piece currentRow
+        piece       = getCurrentPlayer board
+        currentRow  = get (positionRow position) (unBoard board)

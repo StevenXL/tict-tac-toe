@@ -1,8 +1,8 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 
-module Position where
+module Position (Position(..)) where
 
 import Index
 
-newtype Position = Position (Index, Index)
+data Position = Position { positionRow :: Index, positionCol :: Index }
