@@ -33,11 +33,14 @@ countIf :: Eq a => a -> ThreePeat a -> Int
 countIf a = length . filter (== a) . toList
 
 get :: Index -> ThreePeat a -> a
-get Zero threePeat = tpFirst threePeat
-get One threePeat  = tpSecond threePeat
-get Two threePeat  = tpThird threePeat
+get idx = getter idx
 
 insert :: Index -> ThreePeat a -> a -> ThreePeat a
 insert Zero threePeat a = threePeat { tpFirst = a }
 insert One threePeat  a = threePeat { tpSecond = a }
 insert Two threePeat  a = threePeat { tpThird = a }
+
+getter :: Index -> (ThreePeat a -> a)
+getter Zero = tpFirst
+getter One = tpSecond
+getter Two = tpThird
