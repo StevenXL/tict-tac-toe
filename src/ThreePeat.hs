@@ -5,9 +5,10 @@
 
 module ThreePeat (ThreePeat, createThreePeat, intercalateShow, all, countIf, sum, get, insert) where
 
-import ClassyPrelude hiding (toList, all, map, sum, Index)
+import ClassyPrelude hiding (toList, all, map, sum, Index, foldr)
 import qualified ClassyPrelude as CP
 import Index
+import Data.Foldable (Foldable, foldr)
 
 data ThreePeat a = ThreePeat { tpFirst :: a, tpSecond :: a, tpThird :: a } deriving Eq
 
@@ -15,10 +16,12 @@ instance Functor ThreePeat where
   fmap :: (a -> b) -> ThreePeat a -> ThreePeat b
   fmap f ThreePeat{..} = ThreePeat (f tpFirst) (f tpSecond) (f tpThird)
 
--- createThreePeat = ThreePeat
--- The above is bad because it would expose the data constructor
+instance Foldable ThreePeat where
+  foldr :: (a -> b -> b) -> b -> ThreePeat a -> b
+  foldr f b ThreePeat{..} = foldr f b [tpFirst, tpSecond, tpThird]
+
 createThreePeat :: a -> a -> a -> ThreePeat a
-createThreePeat f s t = ThreePeat f s t
+createThreePeat f s t = ThreePeat f s t -- do not expose ThreePeat data constructor
 
 toList :: ThreePeat a -> [a]
 toList ThreePeat{..} = [tpFirst, tpSecond, tpThird]
