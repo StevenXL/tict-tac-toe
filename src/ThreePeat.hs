@@ -5,10 +5,10 @@
 
 module ThreePeat (ThreePeat, createThreePeat, intercalateShow, all, countIf, sum, get, insert) where
 
-import ClassyPrelude hiding (toList, all, map, sum, Index, foldr)
+import ClassyPrelude hiding (toList, all, map, sum, Index, foldr, length)
 import qualified ClassyPrelude as CP
 import Index
-import Data.Foldable (Foldable, foldr)
+import Data.Foldable (Foldable(..))
 
 data ThreePeat a = ThreePeat { tpFirst :: a, tpSecond :: a, tpThird :: a } deriving Eq
 
@@ -23,9 +23,6 @@ instance Foldable ThreePeat where
 createThreePeat :: a -> a -> a -> ThreePeat a
 createThreePeat f s t = ThreePeat f s t -- do not expose ThreePeat data constructor
 
-toList :: ThreePeat a -> [a]
-toList ThreePeat{..} = [tpFirst, tpSecond, tpThird]
-
 intercalateShow :: Text -> (a -> Text) -> ThreePeat a -> Text
 intercalateShow b f = intercalate b . fmap f . toList
 
@@ -34,9 +31,6 @@ all p = and . fmap p . toList
 
 countIf :: Eq a => a -> ThreePeat a -> Int
 countIf a = length . filter (== a) . toList
-
-sum :: Num a => ThreePeat a -> a
-sum = CP.sum . toList
 
 get :: Index -> ThreePeat a -> a
 get Zero threePeat = tpFirst threePeat
